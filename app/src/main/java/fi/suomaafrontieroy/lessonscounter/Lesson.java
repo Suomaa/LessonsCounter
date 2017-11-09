@@ -1,3 +1,5 @@
+package fi.suomaafrontieroy.lessonscounter;
+
 import java.util.UUID;
 
 public class Lesson {

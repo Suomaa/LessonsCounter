@@ -1,15 +1,18 @@
 package fi.suomaafrontieroy.lessonscounter;
 
+import java.util.Date;
 import java.util.UUID;
 
 public class Lesson {
 
     private UUID mId;
     private String mTitle;
+    private Date mDate;
 
     public Lesson() {
         //Generate a unique ID
         mId = UUID.randomUUID();
+        mDate = new Date();
     }
 
     public UUID getId() {
@@ -18,6 +21,14 @@ public class Lesson {
 
     public String getTitle() {
         return mTitle;
+    }
+
+    public Date getDate() {
+        return mDate;
+    }
+
+    public void setDate(Date date) {
+        mDate = date;
     }
 
     public void setTitle(String title) {

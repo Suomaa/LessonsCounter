@@ -7,11 +7,13 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 public class LessonFragment extends Fragment {
     private Lesson mLesson;
     private EditText mTitleField;
+    private Button mDateButton;
 
     @Override
     public void onCreate(Bundle savedInsatnceState) {
@@ -40,6 +42,11 @@ public class LessonFragment extends Fragment {
 
             }
         });
+
+        mDateButton = (Button)v.findViewById(R.id.lesson_date);
+        mDateButton.setText(mLesson.getDate().toString());
+        mDateButton.setEnabled(false);
+
         return v;
     }
 

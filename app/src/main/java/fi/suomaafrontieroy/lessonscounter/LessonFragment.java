@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import java.text.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,7 @@ public class LessonFragment extends Fragment {
         });
 
         mDateButton = (Button)v.findViewById(R.id.lesson_date);
-        mDateButton.setText(mLesson.getDate().toString());
+        mDateButton.setText(DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL).format(mLesson.getDate()));
         mDateButton.setEnabled(false);
 
         return v;

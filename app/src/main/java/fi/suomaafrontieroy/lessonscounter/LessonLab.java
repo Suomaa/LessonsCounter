@@ -24,7 +24,7 @@ public class LessonLab {
         mLessons = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
             Lesson lesson = new Lesson();
-            lesson.setTitle("Crime #" + i);
+            lesson.setTitle("Lesson #" + i);
             mLessons.add(lesson);
         }
     }

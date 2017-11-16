@@ -22,7 +22,7 @@ public class LessonLab {
     private LessonLab (Context context) {
         //mAppContext = appContext;
         mLessons = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 1; i < 100; i++) {
             Lesson lesson = new Lesson();
             lesson.setTitle("Lesson #" + i);
             mLessons.add(lesson);

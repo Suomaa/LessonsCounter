@@ -38,10 +38,20 @@ public class LessonListFragment extends Fragment {
     }
 
     private class LessonHolder extends RecyclerView.ViewHolder {
-        public TextView mTitleTextView;
+        private TextView mTitleTextView;
+        private TextView mDateTextView;
+        private Lesson mLesson;
+
         public LessonHolder(View itemView) {
             super(itemView);
-            mTitleTextView = (TextView) itemView;
+            mTitleTextView = (TextView) itemView.findViewById(R.id.list_item_lesson_title_text_view);
+            mDateTextView = (TextView) itemView.findViewById(R.id.list_item_lesson_date_text_view);
+        }
+
+        public void bindLesson(Lesson lesson) {
+            mLesson = lesson;
+            mTitleTextView.setText(mLesson.getTitle());
+            mDateTextView.setText(mLesson.getDate().toString());
         }
     }
 
@@ -55,13 +65,13 @@ public class LessonListFragment extends Fragment {
         public LessonHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
             View view = layoutInflater
-                    .inflate(android.R.layout.simple_list_item_1, parent, false);
+                    .inflate(R.layout.list_item_lesson, parent, false);
             return new LessonHolder(view);
         }
         @Override
         public void onBindViewHolder(LessonHolder holder, int position) {
             Lesson lesson = mLessons.get(position);
-            holder.mTitleTextView.setText(lesson.getTitle());
+            holder.bindLesson(lesson);
         }
         @Override
         public int getItemCount() {

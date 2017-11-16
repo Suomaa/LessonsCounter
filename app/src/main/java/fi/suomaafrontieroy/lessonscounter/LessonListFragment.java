@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -37,13 +38,14 @@ public class LessonListFragment extends Fragment {
         mLessonRecyclerView.setAdapter(mAdapter);
     }
 
-    private class LessonHolder extends RecyclerView.ViewHolder {
+    private class LessonHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTitleTextView;
         private TextView mDateTextView;
         private Lesson mLesson;
 
         public LessonHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
             mTitleTextView = (TextView) itemView.findViewById(R.id.list_item_lesson_title_text_view);
             mDateTextView = (TextView) itemView.findViewById(R.id.list_item_lesson_date_text_view);
         }
@@ -52,6 +54,13 @@ public class LessonListFragment extends Fragment {
             mLesson = lesson;
             mTitleTextView.setText(mLesson.getTitle());
             mDateTextView.setText(mLesson.getDate().toString());
+        }
+
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(getActivity(),
+                    mLesson.getTitle() + " clicked!", Toast.LENGTH_SHORT)
+                    .show();
         }
     }
 

@@ -45,7 +45,7 @@ public class LessonFragment extends Fragment {
         });
 
         mDateButton = (Button)v.findViewById(R.id.lesson_date);
-        mDateButton.setText(DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL).format(mLesson.getDate()));
+        mDateButton.setText(mLesson.getDate().toString());
         mDateButton.setEnabled(false);
 
         return v;

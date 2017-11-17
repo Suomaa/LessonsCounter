@@ -33,7 +33,7 @@ public class LessonListFragment extends Fragment {
 
     private void updateUI() {
         LessonLab lessonLab = LessonLab.get(getActivity());
-        List<Lesson> lessons = lessonLab.getCrimes();
+        List<Lesson> lessons = lessonLab.getLessons();
         mAdapter = new LessonAdapter(lessons);
         mLessonRecyclerView.setAdapter(mAdapter);
     }
@@ -43,14 +43,14 @@ public class LessonListFragment extends Fragment {
         private TextView mDateTextView;
         private Lesson mLesson;
 
-        public LessonHolder(View itemView) {
-            super(itemView);
+        private LessonHolder(LayoutInflater inflater, ViewGroup parent) {
+            super(inflater.inflate(R.layout.list_item_lesson, parent, false));
             itemView.setOnClickListener(this);
-            mTitleTextView = (TextView) itemView.findViewById(R.id.list_item_lesson_title_text_view);
-            mDateTextView = (TextView) itemView.findViewById(R.id.list_item_lesson_date_text_view);
+            mTitleTextView = (TextView) itemView.findViewById(R.id.lesson_title);
+            mDateTextView = (TextView) itemView.findViewById(R.id.lesson_date);
         }
 
-        public void bindLesson(Lesson lesson) {
+        public void bind(Lesson lesson) {
             mLesson = lesson;
             mTitleTextView.setText(mLesson.getTitle());
             mDateTextView.setText(mLesson.getDate().toString());
@@ -66,21 +66,19 @@ public class LessonListFragment extends Fragment {
 
     private class LessonAdapter extends RecyclerView.Adapter<LessonHolder> {
         private List<Lesson> mLessons;
-        public LessonAdapter(List<Lesson> crimes) {
-            mLessons = crimes;
+        public LessonAdapter(List<Lesson> lessons) {
+            mLessons = lessons;
         }
 
         @Override
         public LessonHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-            View view = layoutInflater
-                    .inflate(R.layout.list_item_lesson, parent, false);
-            return new LessonHolder(view);
+            return new LessonHolder(layoutInflater, parent);
         }
         @Override
         public void onBindViewHolder(LessonHolder holder, int position) {
             Lesson lesson = mLessons.get(position);
-            holder.bindLesson(lesson);
+            holder.bind(lesson);
         }
         @Override
         public int getItemCount() {

@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
     <TextView
-        android:id="@+id/list_item_lesson_title_text_view"
+        android:id="@+id/lesson_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:padding="4dp"
-        tools:text="Lesson Title"/>
+        android:textStyle="bold"/>
     <TextView
-        android:id="@+id/list_item_lesson_date_text_view"
+        android:id="@+id/lesson_date"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/list_item_lesson_title_text_view"
-        android:padding="4dp"
-        tools:text="Lesson Date"/>
-</RelativeLayout>
+        android:layout_height="wrap_content"/>
+</LinearLayout>

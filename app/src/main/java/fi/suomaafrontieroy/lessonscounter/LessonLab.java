@@ -20,7 +20,6 @@ public class LessonLab {
     }
 
     private LessonLab (Context context) {
-        //mAppContext = appContext;
         mLessons = new ArrayList<>();
         for (int i = 1; i < 100; i++) {
             Lesson lesson = new Lesson();
@@ -29,14 +28,14 @@ public class LessonLab {
         }
     }
 
-    public List<Lesson> getCrimes() {
+    public List<Lesson> getLessons() {
         return mLessons;
     }
 
-    public Lesson getCrime(UUID id) {
-        for (Lesson crime : mLessons) {
-            if (crime.getId().equals(id)) {
-                return crime;
+    public Lesson getLesson(UUID id) {
+        for (Lesson lesson : mLessons) {
+            if (lesson.getId().equals(id)) {
+                return lesson;
             }
         }
         return null;

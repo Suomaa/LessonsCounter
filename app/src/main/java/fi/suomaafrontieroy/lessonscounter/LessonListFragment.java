@@ -1,6 +1,7 @@
 package fi.suomaafrontieroy.lessonscounter;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +18,7 @@ public class LessonListFragment extends Fragment {
 
     private RecyclerView mLessonRecyclerView;
     private LessonAdapter mAdapter;
+    private int lessonItemPosition;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,17 +33,30 @@ public class LessonListFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
     private void updateUI() {
         LessonLab lessonLab = LessonLab.get(getActivity());
         List<Lesson> lessons = lessonLab.getLessons();
-        mAdapter = new LessonAdapter(lessons);
-        mLessonRecyclerView.setAdapter(mAdapter);
+
+        if (mAdapter == null) {
+            mAdapter = new LessonAdapter(lessons);
+            mLessonRecyclerView.setAdapter(mAdapter);
+        } else {
+            mAdapter.notifyItemChanged(lessonItemPosition);
+        }
     }
 
     private class LessonHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        private Lesson mLesson;
+
         private TextView mTitleTextView;
         private TextView mDateTextView;
-        private Lesson mLesson;
 
         private LessonHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_lesson, parent, false));
@@ -58,9 +73,9 @@ public class LessonListFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(getActivity(),
-                    mLesson.getTitle() + " clicked!", Toast.LENGTH_SHORT)
-                    .show();
+            lessonItemPosition = getAdapterPosition();
+            Intent intent = LessonActivity.newIntent(getActivity(), mLesson.getId());
+            startActivity(intent);
         }
     }
 

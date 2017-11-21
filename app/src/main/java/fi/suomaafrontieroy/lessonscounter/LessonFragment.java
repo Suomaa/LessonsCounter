@@ -11,15 +11,30 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.UUID;
+
 public class LessonFragment extends Fragment {
+
+    private static final String ARG_LESSON_ID = "lesson_id";
+
     private Lesson mLesson;
     private EditText mTitleField;
     private Button mDateButton;
 
+    public static LessonFragment newInstance(UUID lessonId) {
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_LESSON_ID, lessonId);
+
+        LessonFragment fragment = new LessonFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInsatnceState) {
         super.onCreate(savedInsatnceState);
-        mLesson = new Lesson();
+        UUID lessonId = (UUID) getArguments().getSerializable(ARG_LESSON_ID);
+        mLesson = LessonLab.get(getActivity()).getLesson(lessonId);
     }
 
     @Override
@@ -27,6 +42,7 @@ public class LessonFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_lesson, container, false);
 
         mTitleField = (EditText)v.findViewById(R.id.lesson_title);
+        mTitleField.setText(mLesson.getTitle());
         mTitleField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

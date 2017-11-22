@@ -4,13 +4,15 @@ package fi.suomaafrontieroy.lessonscounter;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class LessonLab {
     private static LessonLab sLessonLab;
 
-    private List<Lesson> mLessons;
+    private Map<UUID, Lesson> mLessons;
 
     public static LessonLab get(Context context) {
         if (sLessonLab == null) {
@@ -20,24 +22,19 @@ public class LessonLab {
     }
 
     private LessonLab (Context context) {
-        mLessons = new ArrayList<>();
+        mLessons = new LinkedHashMap<>();
         for (int i = 1; i < 100; i++) {
             Lesson lesson = new Lesson();
             lesson.setTitle("Lesson #" + i);
-            mLessons.add(lesson);
+            mLessons.put(lesson.getId(), lesson);
         }
     }
 
     public List<Lesson> getLessons() {
-        return mLessons;
+        return new ArrayList<>(mLessons.values());
     }
 
     public Lesson getLesson(UUID id) {
-        for (Lesson lesson : mLessons) {
-            if (lesson.getId().equals(id)) {
-                return lesson;
-            }
-        }
-        return null;
+        return mLessons.get(id);
     }
 }

@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -18,7 +17,7 @@ public class LessonListFragment extends Fragment {
 
     private RecyclerView mLessonRecyclerView;
     private LessonAdapter mAdapter;
-    private int lessonItemPosition;
+    private int mLastAdapterClickPosition = -1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,7 +28,6 @@ public class LessonListFragment extends Fragment {
                 .findViewById(R.id.lesson_recycler_view);
         mLessonRecyclerView.setLayoutManager(new LinearLayoutManager
                 (getActivity()));
-        updateUI();
         return view;
     }
 
@@ -47,7 +45,12 @@ public class LessonListFragment extends Fragment {
             mAdapter = new LessonAdapter(lessons);
             mLessonRecyclerView.setAdapter(mAdapter);
         } else {
-            mAdapter.notifyItemChanged(lessonItemPosition);
+            if (mLastAdapterClickPosition < 0) {
+                mAdapter.notifyDataSetChanged();
+            } else {
+                mAdapter.notifyItemChanged(mLastAdapterClickPosition);
+                mLastAdapterClickPosition = -1;
+            }
         }
     }
 
@@ -73,7 +76,7 @@ public class LessonListFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            lessonItemPosition = getAdapterPosition();
+            mLastAdapterClickPosition = getAdapterPosition();
             Intent intent = LessonActivity.newIntent(getActivity(), mLesson.getId());
             startActivity(intent);
         }

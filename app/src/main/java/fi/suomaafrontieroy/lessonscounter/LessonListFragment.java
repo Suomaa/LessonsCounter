@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,7 +72,7 @@ public class LessonListFragment extends Fragment {
         public void bind(Lesson lesson) {
             mLesson = lesson;
             mTitleTextView.setText(mLesson.getTitle());
-            mDateTextView.setText(mLesson.getDate().toString());
+            mDateTextView.setText(DateFormat.format("dd MMMM yyyy (EEEE) HH:mm:ss", mLesson.getDate()));
         }
 
         @Override

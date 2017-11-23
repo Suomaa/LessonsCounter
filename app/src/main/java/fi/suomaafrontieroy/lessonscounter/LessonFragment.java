@@ -2,9 +2,9 @@ package fi.suomaafrontieroy.lessonscounter;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import java.text.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +16,7 @@ import java.util.UUID;
 public class LessonFragment extends Fragment {
 
     private static final String ARG_LESSON_ID = "lesson_id";
+    private static final String DIALOG_DATE = "DialogDate";
 
     private Lesson mLesson;
     private EditText mTitleField;
@@ -61,8 +62,15 @@ public class LessonFragment extends Fragment {
         });
 
         mDateButton = (Button)v.findViewById(R.id.lesson_date);
-        mDateButton.setText(mLesson.getDate().toString());
-        mDateButton.setEnabled(false);
+        mDateButton.setText(android.text.format.DateFormat.format("dd MMMM yyyy (EEEE) HH:mm:ss", mLesson.getDate()));
+        mDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager = getFragmentManager();
+                DatePickerFragment dialog = new DatePickerFragment();
+                dialog.show(manager, DIALOG_DATE);
+            }
+        });
 
         return v;
     }

@@ -4,4 +4,5 @@
     <string name="lesson_title_label">Title</string>
     <string name="lesson_details_label">Details</string>
     <string name="date_picker_title">Date of lesson:</string>
+    <string name="time_picker_title">Time of lesson:</string>
 </resources>

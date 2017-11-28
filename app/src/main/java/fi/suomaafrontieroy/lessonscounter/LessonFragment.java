@@ -20,12 +20,15 @@ public class LessonFragment extends Fragment {
 
     private static final String ARG_LESSON_ID = "lesson_id";
     private static final String DIALOG_DATE = "DialogDate";
-
     private static final int REQUEST_DATE = 0;
+
+    private static final String DIALOG_TIME = "DialogTime";
+    private static final int REQUEST_TIME = 1;
 
     private Lesson mLesson;
     private EditText mTitleField;
     private Button mDateButton;
+    private Button mTimeButton;
 
     public static LessonFragment newInstance(UUID lessonId) {
         Bundle args = new Bundle();
@@ -79,6 +82,19 @@ public class LessonFragment extends Fragment {
             }
         });
 
+        mTimeButton = (Button)v.findViewById(R.id.lesson_time);
+        updateTime();
+        mTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager = getFragmentManager();
+                TimePickerFragment dialog = TimePickerFragment
+                        .newInstance(mLesson.getDate());
+                dialog.setTargetFragment(LessonFragment.this, REQUEST_TIME);
+                dialog.show(manager, DIALOG_TIME);
+            }
+        });
+
         return v;
     }
 
@@ -92,10 +108,18 @@ public class LessonFragment extends Fragment {
             mLesson.setDate(date);
             updateDate();
         }
+        if (requestCode == REQUEST_TIME) {
+            Date date = (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
+            mLesson.setDate(date);
+            updateTime();
+        }
     }
 
     private void updateDate() {
-        mDateButton.setText(android.text.format.DateFormat.format("dd MMMM yyyy (EEEE) HH:mm:ss", mLesson.getDate()));
+        mDateButton.setText(android.text.format.DateFormat.format("dd MMMM yyyy (EEEE)", mLesson.getDate()));
     }
 
+    private void updateTime() {
+        mTimeButton.setText(android.text.format.DateFormat.format("HH:mm", mLesson.getDate()));
+    }
 }

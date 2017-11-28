@@ -72,7 +72,7 @@ public class LessonListFragment extends Fragment {
         public void bind(Lesson lesson) {
             mLesson = lesson;
             mTitleTextView.setText(mLesson.getTitle());
-            mDateTextView.setText(DateFormat.format("dd MMMM yyyy (EEEE) HH:mm:ss", mLesson.getDate()));
+            mDateTextView.setText(DateFormat.format("dd MMMM yyyy (EEEE) HH:mm", mLesson.getDate()));
         }
 
         @Override

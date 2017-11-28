@@ -9,8 +9,8 @@
         android:id="@+id/lesson_title_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/lesson_title_label"
         style="?android:listSeparatorTextViewStyle"
@@ -21,8 +21,8 @@
         android:id="@+id/lesson_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         android:hint="@string/lesson_title_hint"
         android:textSize="14sp"
@@ -32,33 +32,34 @@
         android:id="@+id/lesson_details_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/lesson_details_label"
         android:textSize="14sp"
         style="?android:listSeparatorTextViewStyle"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lesson_title"/>
+
     <Button
         android:id="@+id/lesson_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/lesson_time"
-        app:layout_constraintTop_toBottomOf="@+id/lesson_details_label"
-        app:layout_constraintHorizontal_chainStyle="spread"/>
+        app:layout_constraintTop_toBottomOf="@+id/lesson_details_label"/>
+
     <Button
         android:id="@+id/lesson_time"
-        android:layout_width="0dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintLeft_toRightOf="@+id/lesson_date"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lesson_details_label"/>
 </android.support.constraint.ConstraintLayout>

@@ -23,6 +23,10 @@ public class Lesson {
         return mTitle;
     }
 
+    public void setTitle(String title) {
+        mTitle = title;
+    }
+
     public Date getDate() {
         return mDate;
     }
@@ -30,9 +34,4 @@ public class Lesson {
     public void setDate(Date date) {
         mDate = date;
     }
-
-    public void setTitle(String title) {
-        mTitle = title;
-    }
-
 }

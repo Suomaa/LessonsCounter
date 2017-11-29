@@ -82,6 +82,7 @@ public class TimePickerFragment extends DialogFragment {
                                 sendResult(Activity.RESULT_OK, date);
                             }
                         })
+                .setNegativeButton(android.R.string.cancel, null)
                 .create();
     }
 

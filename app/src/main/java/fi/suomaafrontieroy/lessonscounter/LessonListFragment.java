@@ -8,6 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -19,6 +22,12 @@ public class LessonListFragment extends Fragment {
     private RecyclerView mLessonRecyclerView;
     private LessonAdapter mAdapter;
     private int mLastAdapterClickPosition = -1;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,20 +47,37 @@ public class LessonListFragment extends Fragment {
         updateUI();
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_lesson_list, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.new_lesson:
+                Lesson lesson = new Lesson();
+                LessonLab.get(getActivity()).addLesson(lesson);
+                Intent intent = LessonActivity
+                        .newIntent(getActivity(), lesson.getId());
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private void updateUI() {
         LessonLab lessonLab = LessonLab.get(getActivity());
-        List<Lesson> lessons = lessonLab.getLessons();
+        List lessons = lessonLab.getLessons();
 
         if (mAdapter == null) {
             mAdapter = new LessonAdapter(lessons);
             mLessonRecyclerView.setAdapter(mAdapter);
         } else {
-            if (mLastAdapterClickPosition < 0) {
-                mAdapter.notifyDataSetChanged();
-            } else {
-                mAdapter.notifyItemChanged(mLastAdapterClickPosition);
-                mLastAdapterClickPosition = -1;
-            }
+            mAdapter.replaceList(lessons);
+            mAdapter.notifyItemChanged(mLastAdapterClickPosition);
         }
     }
 
@@ -85,6 +111,7 @@ public class LessonListFragment extends Fragment {
 
     private class LessonAdapter extends RecyclerView.Adapter<LessonHolder> {
         private List<Lesson> mLessons;
+
         public LessonAdapter(List<Lesson> lessons) {
             mLessons = lessons;
         }
@@ -102,6 +129,10 @@ public class LessonListFragment extends Fragment {
         @Override
         public int getItemCount() {
             return mLessons.size();
+        }
+
+        public void replaceList(List<Lesson> lessons) {
+            mLessons = lessons;
         }
     }
 }

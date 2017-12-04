@@ -23,11 +23,10 @@ public class LessonLab {
 
     private LessonLab (Context context) {
         mLessons = new LinkedHashMap<>();
-        for (int i = 1; i < 100; i++) {
-            Lesson lesson = new Lesson();
-            lesson.setTitle("Lesson #" + i);
-            mLessons.put(lesson.getId(), lesson);
-        }
+    }
+
+    public void addLesson(Lesson l) {
+        mLessons.put(l.getId(), l);
     }
 
     public List<Lesson> getLessons() {
